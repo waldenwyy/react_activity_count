@@ -1,20 +1,40 @@
-import React from 'react'
 import '../stylesheets/ui.scss'
+import { MdTerrain } from 'react-icons/md'
+import { TiWeatherSnow } from 'react-icons/ti'
+import { FaCalendar } from 'react-icons/fa'
 
-export const SkiDayCount = React.createClass({
-	render() {
-		return (
-			<div className="ski-day-count">
-				<div className="total-days">
-					<span>5 days</span>
-				</div>
-				<div className="powder-days">
-					<span>2 days</span>
-				</div>
-				<div className="backcountry-days">
-					<span>1 hiking day</span>
-				</div>
+const percentToDecimal = (decimal) => {
+	return ((decimal * 100) + '%')
+}
+
+const calcGoalProgress = (total, goal) => {
+	return percentToDecimal(total/goal)
+}
+
+export const SkiDayCount = ({total, powder, backcountry, goal}) => (
+		<div className="ski-day-count">
+			<div className="total-days">
+				<span>{total}</span>
+					<FaCalendar />
+				<span>days</span>
 			</div>
-		)
-	}
-})
+			<div className="powder-days">
+				<span>{powder}</span>
+					<TiWeatherSnow />
+				<span>days</span>
+			</div>
+			<div className="backcountry-days">
+				<span>{backcountry}</span>
+					<MdTerrain />
+				<span>days</span>
+			</div>
+			<div>
+				<span>
+					{calcGoalProgress(
+						total, 
+						goal
+					)}
+				</span>
+			</div>
+		</div>
+)
